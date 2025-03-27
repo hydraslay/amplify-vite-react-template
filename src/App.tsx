@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { FileUploader } from '@aws-amplify/ui-react-storage';
 
 const client = generateClient<Schema>();
 
@@ -33,6 +34,17 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
+
+      <FileUploader
+        path="public/"
+        acceptedFileTypes={["image/*"]}
+        maxFileCount={1}
+        onUploadSuccess={() => console.log('アップロード成功')}
+        onUploadError={(error) => console.error('アップロードエラー:', error)}
+        isResumable
+        autoUpload={true}
+        onUploadStart={() => console.log('アップロード開始')}
+      />
     </main>
   );
 }
